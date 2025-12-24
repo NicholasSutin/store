@@ -22,28 +22,19 @@ import type { ComponentProps } from 'react';
 // Simple logo component for the navbar
 const Logo = (props: React.SVGAttributes<SVGElement>) => {
   return (
-    <svg width='1em' height='1em' viewBox='0 0 324 323' fill='currentColor' xmlns='http://www.w3.org/2000/svg' {...(props as any)}>
-      <rect
-        x='88.1023'
-        y='144.792'
-        width='151.802'
-        height='36.5788'
-        rx='18.2894'
-        transform='rotate(-38.5799 88.1023 144.792)'
-        fill='currentColor'
-      />
-      <rect
-        x='85.3459'
-        y='244.537'
-        width='151.802'
-        height='36.5788'
-        rx='18.2894'
-        transform='rotate(-38.5799 85.3459 244.537)'
-        fill='currentColor'
-      />
+    <svg 
+      xmlns="http://www.w3.org/2000/svg" 
+      width="1em" 
+      height="1em" 
+      viewBox="0 0 24 24" 
+      fill="currentColor"
+      {...(props as any)}
+    >      
+      <path d="m21.9 7.89l-1.05-3.37c-.22-.9-1-1.52-1.91-1.52H5.05c-.9 0-1.69.63-1.9 1.52L2.1 7.89c-.46 1.97.85 3.11.9 3.17V19c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2v-7.94c1.12-1.12 1.09-2.41.9-3.17M13 5h1.96l.54 3.52c.09.71-.39 1.48-1.28 1.48c-.67 0-1.22-.59-1.22-1.31zM6.44 8.86c-.08.65-.6 1.14-1.21 1.14c-.93 0-1.35-.97-1.19-1.64L5.05 5h1.97zM11 8.69c0 .72-.55 1.31-1.29 1.31c-.75 0-1.3-.7-1.22-1.48L9.04 5H11zM18.77 10c-.61 0-1.14-.49-1.21-1.14L16.98 5l1.93-.01l1.05 3.37c.16.67-.25 1.64-1.19 1.64" />
     </svg>
   );
 };
+
 
 // Hamburger icon component
 const HamburgerIcon = ({ className, ...props }: React.SVGAttributes<SVGElement>) => (
@@ -98,9 +89,9 @@ export interface Navbar04Props extends React.HTMLAttributes<HTMLElement> {
 
 // Default navigation links
 const defaultNavigationLinks: Navbar04NavItem[] = [
-  { href: '#', label: 'Products' },
-  { href: '#', label: 'Categories' },
-  { href: '#', label: 'Deals' },
+  { href: 'products', label: 'Products' },
+  { href: 'deals', label: 'Deals' },
+  { href: 'about', label: 'About' },
 ];
 
 export const Navbar04 = React.forwardRef<HTMLElement, Navbar04Props>(
@@ -114,7 +105,7 @@ export const Navbar04 = React.forwardRef<HTMLElement, Navbar04Props>(
       signInHref = '#signin',
       cartText = 'Cart',
       cartHref = '#cart',
-      cartCount = 2,
+      cartCount = 0,
       searchPlaceholder = 'Search...',
       onSignInClick,
       onCartClick,
@@ -256,7 +247,7 @@ export const Navbar04 = React.forwardRef<HTMLElement, Navbar04Props>(
                 <div className="text-2xl">
                   {logo}
                 </div>
-                <span className="hidden font-bold text-xl sm:inline-block">shadcn.io</span>
+                <span className="hidden font-bold text-xl sm:inline-block">Store</span>
               </button>
               {/* Navigation menu */}
               {!isMobile && (
@@ -297,7 +288,7 @@ export const Navbar04 = React.forwardRef<HTMLElement, Navbar04Props>(
               <Button
                 variant="ghost"
                 size="sm"
-                className="text-sm font-medium hover:bg-accent hover:text-accent-foreground"
+                className="text-sm font-medium hover:bg-accent hover:text-accent-foreground cursor-pointer"
                 onClick={(e) => {
                   e.preventDefault();
                   if (onSignInClick) onSignInClick();
@@ -307,7 +298,7 @@ export const Navbar04 = React.forwardRef<HTMLElement, Navbar04Props>(
               </Button>
               <Button
                 size="sm"
-                className="text-sm font-medium px-4 h-9 rounded-md shadow-sm"
+                className="text-sm font-medium px-4 h-9 rounded-md shadow-sm cursor-pointer"
                 onClick={(e) => {
                   e.preventDefault();
                   if (onCartClick) onCartClick();
