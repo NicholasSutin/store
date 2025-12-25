@@ -38,7 +38,10 @@ const Logo = (props: React.SVGAttributes<SVGElement>) => {
 };
 
 // Hamburger icon component
-const HamburgerIcon = ({ className, ...props }: React.SVGAttributes<SVGElement>) => (
+const HamburgerIcon = ({
+  className,
+  ...props
+}: React.SVGAttributes<SVGElement>) => (
   <svg
     className={cn('pointer-events-none', className)}
     width="16"
@@ -54,7 +57,7 @@ const HamburgerIcon = ({ className, ...props }: React.SVGAttributes<SVGElement>)
   >
     <path
       d="M4 12L20 12"
-      className="origin-center -translate-y-[7px] transition-all duration-300 ease-[cubic-bezier(.5,.85,.25,1.1)] group-aria-expanded:translate-x-0 group-aria-expanded:translate-y-0 group-aria-expanded:rotate-315deg"
+      className="origin-center -translate-y-[7px] transition-all duration-300 ease-[cubic-bezier(.5,.85,.25,1.1)] group-aria-expanded:translate-x-0 group-aria-expanded:translate-y-0 group-aria-expanded:rotate-[315deg]"
     />
     <path
       d="M4 12H20"
@@ -62,7 +65,7 @@ const HamburgerIcon = ({ className, ...props }: React.SVGAttributes<SVGElement>)
     />
     <path
       d="M4 12H20"
-      className="origin-center translate-y-[7px] transition-all duration-300 ease-[cubic-bezier(.5,.85,.25,1.1)] group-aria-expanded:translate-y-0 group-aria-expanded:rotate-135deg"
+      className="origin-center translate-y-[7px] transition-all duration-300 ease-[cubic-bezier(.5,.85,.25,1.1)] group-aria-expanded:translate-y-0 group-aria-expanded:rotate-[135deg]"
     />
   </svg>
 );
@@ -116,7 +119,7 @@ export const Navbar04 = React.forwardRef<HTMLElement, Navbar04Props>(
     ref
   ) => {
     const [isMobile, setIsMobile] = useState(false);
-    const containerRef = useRef<HTMLElement>(null);
+    const containerRef = useRef<HTMLElement | null>(null);
     const searchId = useId();
 
     useEffect(() => {
@@ -126,9 +129,10 @@ export const Navbar04 = React.forwardRef<HTMLElement, Navbar04Props>(
           setIsMobile(width < 768);
         }
       };
-      checkWidth();
 
+      checkWidth();
       const resizeObserver = new ResizeObserver(checkWidth);
+
       if (containerRef.current) {
         resizeObserver.observe(containerRef.current);
       }
@@ -144,7 +148,7 @@ export const Navbar04 = React.forwardRef<HTMLElement, Navbar04Props>(
         if (typeof ref === 'function') {
           ref(node);
         } else if (ref) {
-          ref.current = node;
+          (ref as React.MutableRefObject<HTMLElement | null>).current = node;
         }
       },
       [ref]
@@ -154,6 +158,7 @@ export const Navbar04 = React.forwardRef<HTMLElement, Navbar04Props>(
       e.preventDefault();
       const formData = new FormData(e.currentTarget);
       const query = formData.get('search') as string;
+
       if (onSearchSubmit) {
         onSearchSubmit(query);
       }
@@ -198,7 +203,11 @@ export const Navbar04 = React.forwardRef<HTMLElement, Navbar04Props>(
                         </NavigationMenuItem>
                       ))}
 
-                      <NavigationMenuItem className="w-full" role="presentation" aria-hidden="true">
+                      <NavigationMenuItem
+                        className="w-full"
+                        role="presentation"
+                        aria-hidden="true"
+                      >
                         <div
                           role="separator"
                           aria-orientation="horizontal"
@@ -223,7 +232,9 @@ export const Navbar04 = React.forwardRef<HTMLElement, Navbar04Props>(
                           <Link href={cartHref} onClick={onCartClick}>
                             <span className="flex items-baseline gap-2">
                               {cartText}
-                              <span className="text-primary-foreground/60 text-xs">{cartCount}</span>
+                              <span className="text-primary-foreground/60 text-xs">
+                                {cartCount}
+                              </span>
                             </span>
                           </Link>
                         </Button>
@@ -262,21 +273,21 @@ export const Navbar04 = React.forwardRef<HTMLElement, Navbar04Props>(
                 </NavigationMenuList>
               </NavigationMenu>
             )}
-          </div>
 
-          {/* Search form */}
-          <form onSubmit={handleSearchSubmit} className="relative">
-            <Input
-              id={searchId}
-              name="search"
-              className="peer h-8 ps-8 pe-2"
-              placeholder={searchPlaceholder}
-              type="search"
-            />
-            <div className="text-muted-foreground/80 pointer-events-none absolute inset-y-0 start-0 flex items-center justify-center ps-2 peer-disabled:opacity-50">
-              <SearchIcon size={16} />
-            </div>
-          </form>
+            {/* Search form */}
+            <form onSubmit={handleSearchSubmit} className="relative">
+              <Input
+                id={searchId}
+                name="search"
+                className="peer h-8 ps-8 pe-2"
+                placeholder={searchPlaceholder}
+                type="search"
+              />
+              <div className="text-muted-foreground/80 pointer-events-none absolute inset-y-0 start-0 flex items-center justify-center ps-2 peer-disabled:opacity-50">
+                <SearchIcon size={16} />
+              </div>
+            </form>
+          </div>
 
           {/* Right side */}
           {!isMobile && (
@@ -302,7 +313,9 @@ export const Navbar04 = React.forwardRef<HTMLElement, Navbar04Props>(
                 <Link href={cartHref} onClick={onCartClick}>
                   <span className="flex items-baseline gap-2">
                     {cartText}
-                    <span className="text-primary-foreground/60 text-xs">{cartCount}</span>
+                    <span className="text-primary-foreground/60 text-xs">
+                      {cartCount}
+                    </span>
                   </span>
                 </Link>
               </Button>
@@ -315,4 +328,5 @@ export const Navbar04 = React.forwardRef<HTMLElement, Navbar04Props>(
 );
 
 Navbar04.displayName = 'Navbar04';
+
 export { Logo, HamburgerIcon };
