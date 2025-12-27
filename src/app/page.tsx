@@ -3,7 +3,20 @@ import Image from "next/image";
 export default function Home() {
 	return (
 		<div>
-			<h1>hi</h1>
+			<video
+                    className="w-full h-auto bg-black"
+                    autoPlay
+                    muted
+                    loop
+                    playsInline
+                    preload="metadata"
+                    poster="/iphonebanner.webp"
+                >
+                    <source
+                    src="BlenderPhoneDemo.mp4"
+                    type='video/mp4;'
+                    />
+                </video>
 		</div>
 	);
 }
